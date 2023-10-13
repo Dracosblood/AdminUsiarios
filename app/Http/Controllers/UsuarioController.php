@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\usuario;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
@@ -12,7 +12,9 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        //
+      $usuario = new Usuario();
+      return $usuario->all();
+
     }
 
     /**
@@ -28,15 +30,21 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $usuario = new Usuario();
+        $usuario->nombres = $request->nombres;
+        $usuario->apellidos = $request->apellidos;
+        $usuario->correo = $request->correo;
+        $usuario->fecharegistro = $request->fecharegistro;
+        $usuario->save();
+        return "usuario guardado correctamente";
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(usuario $usuario)
+    public function show(string $id)
     {
-        //
+        return Usuario::where('id',$id)->get();
     }
 
     /**
