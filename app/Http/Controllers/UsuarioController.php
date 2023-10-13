@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
       $usuario = new Usuario();
@@ -17,57 +15,42 @@ class UsuarioController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
     {
         $usuario = new Usuario();
-        $usuario->nombres = $request->nombres;
-        $usuario->apellidos = $request->apellidos;
+        $usuario->nombre = $request->nombre;
+        $usuario->apellido = $request->apellido;
         $usuario->correo = $request->correo;
         $usuario->fecharegistro = $request->fecharegistro;
         $usuario->save();
         return "usuario guardado correctamente";
     }
 
-    /**
-     * Display the specified resource.
-     */
+   
     public function show(string $id)
     {
         return Usuario::where('id',$id)->get();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(usuario $usuario)
+   
+   
+    public function update(Request $request, string $id)
     {
-        //
+        $usuario = Usuario::find($id);
+        $usuario->nombre = $request->nombre;
+        $usuario->apellido = $request->apellido;
+        $usuario->correo = $request->correo;
+        $usuario->fecharegistro = $request->fecharegistro;
+        $usuario->save();
+        return "usuario editado correctamente";
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, usuario $usuario)
+  
+    public function destroy(string $id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(usuario $usuario)
-    {
-        //
+        $usuario = Usuario::find($id);
+        $usuario->delete();
+        return "Usuario eliminado correctamente";
     }
 }
